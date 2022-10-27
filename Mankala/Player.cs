@@ -6,6 +6,5 @@ namespace Mankala
 {
     class Player
     {
-        public int Score = 0;
     }
 }
