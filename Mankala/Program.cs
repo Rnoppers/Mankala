@@ -6,7 +6,7 @@ namespace Mankala
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("NIeuweBranch");
         }
     }
 }

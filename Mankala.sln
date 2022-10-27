@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mankala", "Mankala\Mankala.csproj", "{77A0BBBD-B76B-460B-AE6D-4F497DF82ABC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MankalaTests", "MankalaTests\MankalaTests.csproj", "{0C894434-3460-4043-92BF-6CEE42769DE1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{77A0BBBD-B76B-460B-AE6D-4F497DF82ABC} = {77A0BBBD-B76B-460B-AE6D-4F497DF82ABC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
