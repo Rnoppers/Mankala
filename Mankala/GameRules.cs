@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mankala
 {
-    class GameRules
+    public class GameRules
     {
     }
 }

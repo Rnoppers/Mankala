@@ -4,7 +4,20 @@ using System.Text;
 
 namespace Mankala
 {
-    class GameInstatiator
+    public class GameInstatiator
     {
+       //Create ruleset
+
+
+        public void CreateGame(GameRules Ruleset)
+        {
+            Game SpelVerloop = new Game(Ruleset);
+        }
+
+        public void CreateTestGame(GameRules Testset)
+        {
+
+        }
+
     }
 }
