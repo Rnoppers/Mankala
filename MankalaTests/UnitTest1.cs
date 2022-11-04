@@ -1,13 +1,19 @@
 using System;
 using Xunit;
+using Mankala;
 
 namespace MankalaTests
 {
-    public class UnitTest1
+    public class PlayingBoardFactoryTest
     {
         [Fact]
-        public void Test1()
+        public void CreatePlayingBoardTest()
         {
+            //Arrange
+
+            //Act
+
+            //Assert
 
         }
     }

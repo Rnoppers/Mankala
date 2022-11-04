@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mankala
 {
-    class Program
+    class Program1
     {
         static void Main()
         {
