@@ -2,7 +2,7 @@
 
 namespace Mankala
 {
-    class Program
+    class Program1
     {
         static void Main()
         {
