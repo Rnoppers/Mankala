@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mankala", "Mankala\Mankala.csproj", "{77A0BBBD-B76B-460B-AE6D-4F497DF82ABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MankalaTests", "MankalaTests\MankalaTests.csproj", "{0C894434-3460-4043-92BF-6CEE42769DE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77A0BBBD-B76B-460B-AE6D-4F497DF82ABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A0BBBD-B76B-460B-AE6D-4F497DF82ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A0BBBD-B76B-460B-AE6D-4F497DF82ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A0BBBD-B76B-460B-AE6D-4F497DF82ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C894434-3460-4043-92BF-6CEE42769DE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C894434-3460-4043-92BF-6CEE42769DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C894434-3460-4043-92BF-6CEE42769DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C894434-3460-4043-92BF-6CEE42769DE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F7A4E9A4-DB73-44B7-A782-502DE68BC172}
+	EndGlobalSection
+EndGlobal

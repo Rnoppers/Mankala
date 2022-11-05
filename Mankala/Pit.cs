@@ -6,8 +6,9 @@ namespace Mankala
 {
     public abstract class Pit
     {
-        public abstract Player isOfPlayer { get; }
-        public abstract List<Stone> Stones { get; }
+        public Player isOfPlayer = null;
+        public List<Stone> stones;
+
     }
 
     public class PlayingPit : Pit
@@ -15,15 +16,23 @@ namespace Mankala
         public PlayingPit()
         {
 
+        public PlayingPit(Player player) : base(player)
+        {
         }
-        public override Player isOfPlayer => throw new NotImplementedException();
 
-        public override List<Stone> Stones => throw new NotImplementedException();
     }
 
-    public class CollectingPit : Pit
+
+    class CollectingPit : Pit
     {
-        public override Player isOfPlayer => throw new NotImplementedException();
+        public CollectingPit(Player player) : base(player)
+        {
+        }
+
+        public int GetScore()
+        {
+            return stones.Count;
+        }
 
         public override List<Stone> Stones => throw new NotImplementedException();
     }
