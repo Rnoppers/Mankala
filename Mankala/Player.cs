@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Mankala
 {
-    class Player
+    public class Player
     {
+       public Player()
+        {
+
+        }
     }
 }

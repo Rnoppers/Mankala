@@ -6,7 +6,7 @@ namespace Mankala
 {
     class Game
     {
-        public Game()
+        public Game(GameRules rules)
         {
 
         }

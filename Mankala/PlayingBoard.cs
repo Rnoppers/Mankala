@@ -4,12 +4,9 @@ using System.Text;
 
 namespace Mankala
 {
-    class PlayingBoard
+    public class PlayingBoard
     {
-        public PlayingBoard(List<Pit> pits, int AmountOfPits, int AmountOfStartingstones)
-        {
-
-        }
+        public Pit [] pits = new Pit[14];
 
     }
 
