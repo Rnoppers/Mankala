@@ -10,5 +10,11 @@ namespace Mankala
         {
 
         }
+
+        public Player ChangePlayer()
+        {
+            Player temp = new Player();
+            return temp;
+        }
     }
 }

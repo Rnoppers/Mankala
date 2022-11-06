@@ -26,7 +26,7 @@ namespace Mankala
 
         public abstract string ChooseWinner();
 
-        public abstract bool Move(PlayingBoard playBoard, Player turn, int chosenPit);
+        public abstract PlayingBoard Move(PlayingBoard playBoard, Player turn, int chosenPit);
 
         public abstract bool LegalMove(Pit chosenPit, Player turn);
 

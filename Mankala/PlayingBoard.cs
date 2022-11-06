@@ -6,11 +6,10 @@ namespace Mankala
 {
     public class PlayingBoard
     {
-        Pit[] pits;
+        public Pit[] pits;
 
         public PlayingBoard(int amountOfPits, int initialAmountOfStones, Player[] players)
         {
-
             CreatePits(amountOfPits, initialAmountOfStones, players);
         }
 
