@@ -6,6 +6,8 @@ namespace Mankala
 {
     public abstract class Ruleset
     {
+
+
         public abstract int playerCollectionPits
         {
             get;
@@ -18,6 +20,11 @@ namespace Mankala
 
 
         public abstract List<int> startingStones
+        {
+            get;
+        }
+
+        public abstract int totalPits
         {
             get;
         }

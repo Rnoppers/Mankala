@@ -6,16 +6,19 @@ namespace Mankala
 {
     public class Turn
     {
-        public Turn()
-        {
+        private Ruleset gameRules;
 
+
+        public Turn(Ruleset rules)
+        {
+            gameRules = rules;
         }
 
 
-        public void NextMove(PlayingBoard playBoard, Player turn, int chosenPit)
+        public void NextMove(PlayingBoard playBoard, Player turnPlayer, int chosenPit)
         {
             PlayingBoard afterMoveBoard;
-            afterMoveBoard = Ruleset.Move(playBoard, turn, chosenPit);
+            afterMoveBoard = gameRules.Move(playBoard, turnPlayer, chosenPit);
 
             //1 illegalboard maken.
             if(afterMoveBoard == illegalBoard)
@@ -23,21 +26,22 @@ namespace Mankala
                 //string return van "deze move kan niet"
             }
             //-1, omdat tie de enemies collectingpit overslaat. Voor Mankala is dat 1 namelijk.
-            int endingPit = (chosenPit % (playBoard.pits.Length - 1));
             
-            if(endingPit.isOfPlayer == turn)
+            int endingPit = (chosenPit % (playBoard.pits.Length - 1));
+            if(afterMoveBoard.pits[endingPit].isOfPlayer == turnPlayer)
             {
-                if(endingPit.kindOfPit == CollectingPit)
+                if(afterMoveBoard.pits[endingPit].GetType().ToString() == "CollectionPit")
                 {
-                    //User Input welke pit tie nu kiest. Dus gewoon return, zonder turn aan te passen.
+                    //Player mag opnieuw een pit kiezen. User Input welke pit tie nu kiest. Wachten op user input en dan opnieuw nextMove aanroepen.
+                    int newChosenPit;
+                    NextMove(afterMoveBoard, turnPlayer, newChosenPit); 
                     return;
                 }
 
                 if(afterMoveBoard.pits[endingPit].stones.Count > 0)
                 {
-                    NextMove(afterMoveBoard, turn, endingPit);
-                    //Player has to change. We still have to implement this.
-                    Player.ChangePlayer();
+                    NextMove(afterMoveBoard, turnPlayer, endingPit);
+                    //Turn ends. player has to change.
                     return;
                 }
 
@@ -45,19 +49,33 @@ namespace Mankala
                 int oppositePit = (endingPit + (afterMoveBoard.pits.Length)/2);
                 if (afterMoveBoard.pits[oppositePit].stones.Count > 0)
                 {
-                    foreach (Stone stone in afterMoveBoard.pits[oppositePit].stones)
-                    {
-                        turn.CollectingPit.stones.add(stone);
-
-                        int lastStone = afterMoveBoard.pits[oppositePit].LastStone();
-                        afterMoveBoard.pits[oppositePit].stones.RemoveAt[lastStone];
-                    }
-                    Player.ChangePlayer();
+                    eatStones(afterMoveBoard, oppositePit, turnPlayer);
+                    //Turn ends. Player should change.
                     return;
                 }
             }
-
-
         }
+
+        private void eatStones(PlayingBoard playBoard, int eatPit, Player turnPlayer)
+        {
+            int collectionPit = findCollectionPit(playBoard, turnPlayer);
+
+            foreach (int stone in playBoard.pits[eatPit].stones)
+            {
+                playBoard.pits[collectionPit].stones.Push(stone);
+                int lastStone = playBoard.pits[eatPit].stones.Pop();
+            }
+        }
+
+        private int findCollectionPit(PlayingBoard playBoard, Player turnPlayer)
+        {
+            for(int i = 0; i <= playBoard.pits.Length; i++)
+            {
+                if (playBoard.pits[i].GetType().ToString() == "CollectionPit" && playBoard.pits[i].isOfPlayer == turnPlayer)
+                    return i;
+            }
+            throw new ArgumentException("player heeft geen collectionpit.");
+        }
+
     }
 }

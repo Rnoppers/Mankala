@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Mankala
 {
-    class PlayingBoardFactory
+    public class PlayingBoardFactory
     {
-        public PlayingBoard CreatePlayingBoard(int pits, int stones, Player[] players)
+        public PlayingBoard CreatePlayingBoard(int pits, Stack<int> stones, Player[] players)
         {
             PlayingBoard newBoard = new PlayingBoard(pits, stones, players);
             return newBoard;

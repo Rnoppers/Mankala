@@ -10,20 +10,22 @@ namespace Mankala
 
         public override int playerPlayingPits => 6;
 
-        public override List<int> startingStones
+        public override Stack<int> startingStones
         {
             get
             {
                 int stone = 1;
-                startingStones.Add(stone);
-                startingStones.Add(stone);
-                startingStones.Add(stone);
-                startingStones.Add(stone);
-                return new List<int>();
+                startingStones.Push(stone);
+                startingStones.Push(stone);
+                startingStones.Push(stone);
+                startingStones.Push(stone);
+                return new Stack<int>();
             }
         }
 
         private int amountOfStartingStones = 4;
+
+        public override int totalPits => 14;
 
 
         public Mankala()
@@ -67,12 +69,15 @@ namespace Mankala
             }
         }
 
-        public override bool LegalMove(Pit chosenPit, Player turn)
+        public override bool LegalMove(Pit chosenPit, Player turnPlayer)
         {
-            if (chosenPit.isOfPlayer != turn)
+            if (chosenPit.isOfPlayer != turnPlayer)
                 return false;
 
             if (chosenPit.stones.Count == 0)
+                return false;
+
+            if (chosenPit.GetType().ToString() == "CollectionPit")
                 return false;
 
             return true;

@@ -8,7 +8,7 @@ namespace Mankala
     {
         public Pit[] pits;
 
-        public PlayingBoard(int amountOfPits, int initialAmountOfStones, Player[] players)
+        public PlayingBoard(int amountOfPits, Stack<int> initialAmountOfStones, Player[] players)
         {
             CreatePits(amountOfPits, initialAmountOfStones, players);
         }

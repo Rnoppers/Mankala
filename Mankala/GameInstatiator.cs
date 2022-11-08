@@ -4,36 +4,36 @@ using System.Text;
 
 namespace Mankala
 {
-    class GameInstatiator
+    public class GameInstatiator
     {
-        private GameRules rules;
+        private Ruleset rules;
 
-        public GameInstatiator()
+        public GameInstatiator(string gameRulesInput)
         {
-            GameRules chosenRules = ChooseRules();
+            Ruleset chosenRules = ChooseRules(gameRulesInput);
             CreateGame(chosenRules);
         }
-
         
-        private void CreateGame(GameRules rules)
+        private void CreateGame(Ruleset rules)
         {
             Game gameplay = new Game(rules);
         }
 
-        private GameRules ChooseRules()
+        private Ruleset ChooseRules(string gameRulesInput)
         {
-            string rulesInput = "Mankala";
             string mankalaRules = "Mankala";
             string wariRules = "Wari";
 
-            if(rulesInput == mankalaRules)
+            if(gameRulesInput == mankalaRules)
             {
+                rules = new Mankala();
             }
-            else
+            else if(gameRulesInput == wariRules)
             {
-
+                rules = new Wari();
             }
-            return rules;
+            //No valid rules
+            throw new ArgumentException("inputrules do not exist");
         }
 
     }
