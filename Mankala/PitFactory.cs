@@ -4,18 +4,27 @@ using System.Text;
 
 namespace Mankala
 {
-    abstract class PitFactory
+    public abstract class PitFactory
     {
+        public abstract Pit CreatePit(Player isOfPlayer, Stack<int> stones);
     }
 
-    class PlayingPitCreator : PitFactory
+    public class PlayingPitCreator : PitFactory
     {
-
+        public override Pit CreatePit(Player isOfPlayer, Stack<int> stones)
+        {
+            PlayingPit newPit = new PlayingPit(isOfPlayer, stones);
+            return newPit;
+        }
     }
 
-    class CollectingPitCreator : PitFactory
+    public class CollectingPitCreator : PitFactory
     {
-
+        public override Pit CreatePit(Player isOfPlayer, Stack<int> stones)
+        {
+            CollectingPit newPit = new CollectingPit(isOfPlayer, stones);
+            return newPit;
+        }
     }
 
 

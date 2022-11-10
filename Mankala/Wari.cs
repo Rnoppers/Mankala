@@ -6,33 +6,31 @@ namespace Mankala
 {
     class Wari : Ruleset
     {
-        public override int playerCollectionPits => throw new NotImplementedException();
+        public override List<PitRecipe> playerPits => throw new NotImplementedException();
 
-        public override int playerPlayingPits => throw new NotImplementedException();
+        public override Stack<int> startingStones => throw new NotImplementedException();
 
-        public override List<int> startingStones => throw new NotImplementedException();
-
-        public override string ChooseWinner()
+        public override Player ChooseWinner(PlayingBoard playingBoard)
         {
             throw new NotImplementedException();
         }
 
-        public override PlayingBoard DoMove(PlayingBoard playBoard, int chosenPit)
+        public override PlayingBoard DoMove(PlayingBoard playBoard, Player turnPlayer, int chosenPit)
         {
             throw new NotImplementedException();
         }
 
-        public override void GameOverChecker()
+        public override bool GameOverChecker(PlayingBoard playBoard, Player turnPlayer)
         {
             throw new NotImplementedException();
         }
 
-        public override bool LegalMove(Pit chosenPit, Player turn)
+        public override bool LegalMove(Pit chosenPit, Player turnPlayer)
         {
             throw new NotImplementedException();
         }
 
-        public override PlayingBoard Move(PlayingBoard playBoard, Player turn, int chosenPit)
+        public override PlayingBoard Move(PlayingBoard playBoard, Player turnPlayer, int chosenPit)
         {
             throw new NotImplementedException();
         }

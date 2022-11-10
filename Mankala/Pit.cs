@@ -6,32 +6,52 @@ namespace Mankala
 {
     public abstract class Pit
     {
-        public Player isOfPlayer = null;
-        public Stack<int> stones;
+        public abstract Player isOfPlayer
+        {
+            get;
+        }
 
+        public abstract Stack<int> stones
+        {
+            get;
+        }
     }
 
     public class PlayingPit : Pit
     {
-        public PlayingPit()
+        public PlayingPit(Player isOfPlayerConstruct, Stack<int> stonesConstruct)
         {
-
-            public PlayingPit(Player player) : base(player)
-            {
-            }
+            isOfPlayer = isOfPlayerConstruct;
+            stones = stonesConstruct;
         }
+        public override Player isOfPlayer
+        {
+            get;
+        }
+
+        public override Stack<int> stones
+        {
+            get;
+        }
+
     }
 
 
     public class CollectingPit : Pit
     {
-        public CollectingPit(Player player) : base(player)
+        public CollectingPit(Player isOfPlayerConstruct, Stack<int> stonesConstruct)
         {
+            isOfPlayer = isOfPlayerConstruct;
+            stones = stonesConstruct;
+        }
+        public override Player isOfPlayer
+        {
+            get;
         }
 
-        public int GetScore()
+        public override Stack<int> stones
         {
-            return stones.Count;
+            get;
         }
     }
 

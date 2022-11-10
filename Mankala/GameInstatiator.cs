@@ -7,6 +7,7 @@ namespace Mankala
     public class GameInstatiator
     {
         private Ruleset rules;
+        public Game gameplay; 
 
         public GameInstatiator(string gameRulesInput)
         {
@@ -16,7 +17,7 @@ namespace Mankala
         
         private void CreateGame(Ruleset rules)
         {
-            Game gameplay = new Game(rules);
+            gameplay = new Game(rules);
         }
 
         private Ruleset ChooseRules(string gameRulesInput)

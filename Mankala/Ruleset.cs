@@ -6,38 +6,25 @@ namespace Mankala
 {
     public abstract class Ruleset
     {
-
-
-        public abstract int playerCollectionPits
+        public abstract List<PitRecipe> playerPits
         {
             get;
         }
 
-        public abstract int playerPlayingPits
+        public abstract Stack<int> startingStones
         {
             get;
         }
 
+        public abstract bool GameOverChecker(PlayingBoard playBoard, Player turnPlayer);
 
-        public abstract List<int> startingStones
-        {
-            get;
-        }
+        public abstract Player ChooseWinner(PlayingBoard playingBoard);
 
-        public abstract int totalPits
-        {
-            get;
-        }
+        public abstract PlayingBoard Move(PlayingBoard playBoard, Player turnPlayer, int chosenPit);
 
-        public abstract void GameOverChecker();
+        public abstract bool LegalMove(Pit chosenPit, Player turnPlayer);
 
-        public abstract string ChooseWinner();
-
-        public abstract PlayingBoard Move(PlayingBoard playBoard, Player turn, int chosenPit);
-
-        public abstract bool LegalMove(Pit chosenPit, Player turn);
-
-        public abstract PlayingBoard DoMove(PlayingBoard playBoard, int chosenPit);
+        public abstract PlayingBoard DoMove(PlayingBoard playBoard, Player turnPlayer, int chosenPit);
 
 
 
