@@ -6,6 +6,7 @@ namespace Mankala
 {
     public class GameInstatiator
     {
+        private Ruleset gameRules;
 
         public GameInstatiator()
         {
@@ -14,6 +15,7 @@ namespace Mankala
         public Game CreateGame(string input)
         {
             Ruleset chosenRules = ChooseRules(input);
+            gameRules = chosenRules;
             return (new Game(chosenRules));
         }
 
@@ -22,16 +24,18 @@ namespace Mankala
             string mankalaRules = "1"; //"Mankala"
             string wariRules = "2"; //"Wari"
 
-            if(gameRulesInput == mankalaRules)
+            if (gameRulesInput == mankalaRules)
             {
                 return (new Mankala());
             }
-            else if(gameRulesInput == wariRules)
+            else if (gameRulesInput == wariRules)
             {
                 return (new Wari());
             }
-            //No valid rules
-            throw new ArgumentException("inputrules do not exist");
+            else
+            {
+                throw new ArgumentException("inputrules do not exist");
+            }
         }
 
     }

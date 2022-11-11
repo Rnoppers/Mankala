@@ -87,7 +87,7 @@ namespace Mankala
     {
         public override int playingPits
         {
-            get { return 6; }
+            get { return 8; }
         }
 
 
@@ -111,12 +111,16 @@ namespace Mankala
         {
             int mostPoints = -1;
             Player winner = new Player();
-            foreach (CollectingPit collection in playingBoard.pits)
+            string collectingPit = "Mankala.CollectingPit";
+            foreach (Pit pit in playingBoard.pits)
             {
-                if (collection.stones.Count > mostPoints)
+                if (pit.GetType().ToString() == collectingPit)
                 {
-                    mostPoints = collection.stones.Count;
-                    winner = collection.isOfPlayer;
+                    if (pit.stones.Count > mostPoints)
+                    {
+                        mostPoints = pit.stones.Count;
+                        winner = pit.isOfPlayer;
+                    }
                 }
             }
             return winner;
@@ -219,11 +223,11 @@ namespace Mankala
     }
 
 
-    class Wari : Ruleset
+    public class Wari : Ruleset
     {
         public override int playingPits
         {
-            get { return 6; }
+            get { return 12; }
         }
 
 
