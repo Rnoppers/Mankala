@@ -25,16 +25,19 @@ namespace Mankala
             string mankalaRules = "Mankala";
             string wariRules = "Wari";
 
-            if(gameRulesInput == mankalaRules)
+            if (gameRulesInput == mankalaRules)
             {
                 rules = new Mankala();
             }
-            else if(gameRulesInput == wariRules)
+            else if (gameRulesInput == wariRules)
             {
                 rules = new Wari();
             }
-            //No valid rules
-            throw new ArgumentException("inputrules do not exist");
+            else
+            {
+                throw new ArgumentException("inputrules do not exist");
+            }
+            return rules;
         }
 
     }

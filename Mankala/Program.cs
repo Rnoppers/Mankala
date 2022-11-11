@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Mankala
 {
@@ -6,10 +7,18 @@ namespace Mankala
     {
         static void Main()
         {
+
+            string chosenGameRules = "Mankala";
+            Ruleset newGameRules = new Mankala();
+            Game fakeGame = new Game(newGameRules);
+
+            GameInstatiator newInstatiation = new GameInstatiator(chosenGameRules);
+
+            Console.WriteLine(fakeGame.knownRules.ToString());
+            
             /*
             GameRunner runner = new GameRunner();
             runner.Run();
-            */
 
             var controller = new GameController();
             var view = new GameView();
@@ -26,6 +35,7 @@ namespace Mankala
 
             //when game is won, some logic to exit
             GameClient client = new GameClient();
+            */
         }
     }
 }

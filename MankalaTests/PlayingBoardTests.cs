@@ -1,30 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Xunit;
+using Mankala;
 
 namespace MankalaTests
 {
     public class PlayingBoardTests
     {
         [Fact]
-        public void LegalMoveWrongPlayerTurn()
+        public void PlayBoardFactoryPits()
         {
-            Player turnPlayer1 = new Player();
-            Player player2 = new Player();
+            //Arrange
+            PlayingBoardFactory testFactory = new PlayingBoardFactory();
+            int playingPits = 14;
+            Stack<int> stones = new Stack<int>();
+            int stone = 1;
+            stones.Push(stone);
+            Player[] players = new Player[2];
+            Player player1 = new Player();
+            players[0] = player1;
 
-            Pit player2Pit = new PlayingPit();
-            List<Stone> stoneList = new List<Stone>();
-            Stone stone = new Stone();
-            stoneList.Add(stone);
-            player2Pit.stones = stoneList;
-            player2Pit.isOfPlayer(player2);
+            int amountPlayers = 2;
+            int totalPits = playingPits + amountPlayers;
 
-            Ruleset testRules = new Mankala.Mankala();
-            bool result = testRules.LegalMove(player2Pit, turnPlayer1);
+            //Act
+            PlayingBoard testBoard = testFactory.CreatePlayingBoard(playingPits, stones, players);
 
-            //cant choose other players pit
-            Assert.False(result);
+            //Assert
+            Assert.True(testBoard.pits.Length == totalPits);
         }
 
+        [Fact]
+        public void PlayBoardFactoryStones()
+        {
+            //Arrange
+            PlayingBoardFactory testFactory = new PlayingBoardFactory();
+            int playingPits = 14;
+            Stack<int> stones = new Stack<int>();
+            int stone = 1;
+            stones.Push(stone);
+            Player[] players = new Player[2];
+            Player player1 = new Player();
+            players[0] = player1;
+
+            int amountOfStones = 1;
+
+            //Act
+            PlayingBoard testBoard = testFactory.CreatePlayingBoard(playingPits, stones, players);
+
+            //Assert
+            Assert.True(testBoard.pits[4].stones.Count == amountOfStones);
+        }
+
+        [Fact]
+        public void PlayBoardFactoryPlayers()
+        {
+            //Arrange
+            PlayingBoardFactory testFactory = new PlayingBoardFactory();
+            int playingPits = 14;
+            Stack<int> stones = new Stack<int>();
+            int stone = 1;
+            stones.Push(stone);
+            Player[] players = new Player[2];
+            Player player1 = new Player();
+            players[0] = player1;
+
+
+            //Act
+            PlayingBoard testBoard = testFactory.CreatePlayingBoard(playingPits, stones, players);
+
+            //Assert
+            Assert.True(testBoard.pits[4].isOfPlayer == player1);
+        }
+
+        [Fact]
+        public void PlayBoardFactoryNull()
+        {
+            //Arrange
+            PlayingBoardFactory testFactory = new PlayingBoardFactory();
+            int playingPits = 14;
+            Stack<int> stones = new Stack<int>();
+            int stone = 1;
+            stones.Push(stone);
+            Player[] players = new Player[2];
+            Player player1 = new Player();
+            players[0] = player1;
+
+
+            //Act
+            PlayingBoard testBoard = testFactory.CreatePlayingBoard(playingPits, stones, players);
+
+            //Assert
+            Assert.NotNull(testBoard);
+        }
     }
 }

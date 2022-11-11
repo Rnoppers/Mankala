@@ -85,7 +85,7 @@ namespace Mankala
     {
         public override int playingPits
         {
-            get { return 6; }
+            get { return 12; }
         }
 
 
@@ -109,12 +109,16 @@ namespace Mankala
         {
             int mostPoints = -1;
             Player winner = new Player();
-            foreach (CollectingPit collection in playingBoard.pits)
+            string collectingPit = "Mankala.CollectingPit";
+            foreach (Pit pit in playingBoard.pits)
             {
-                if (collection.stones.Count > mostPoints)
+                if (pit.GetType().ToString() == collectingPit)
                 {
-                    mostPoints = collection.stones.Count;
-                    winner = collection.isOfPlayer;
+                    if (pit.stones.Count > mostPoints)
+                    {
+                        mostPoints = pit.stones.Count;
+                        winner = pit.isOfPlayer;
+                    }
                 }
             }
             return winner;
@@ -148,7 +152,7 @@ namespace Mankala
                 int endingPit = DetermineEndingPit(playBoard, chosenPit);
                 if (afterMoveBoard.pits[endingPit].isOfPlayer == turnPlayer)
                 {
-                    if (afterMoveBoard.pits[endingPit].GetType().ToString() == "CollectionPit")
+                    if (afterMoveBoard.pits[endingPit].GetType().ToString() == "Mankala.CollectingPit")
                     {
                         //Player mag opnieuw een pit kiezen. User Input welke pit tie nu kiest. Wachten op user input en dan opnieuw Move aanroepen.
                         int newChosenPit = -1;
@@ -186,7 +190,9 @@ namespace Mankala
             if (chosenPit.stones.Count == 0)
                 return false;
 
-            if (chosenPit.GetType().ToString() == "CollectionPit")
+            Console.WriteLine(chosenPit.GetType().ToString());
+
+            if (chosenPit.GetType().ToString() == "Mankala.CollectingPit")
                 return false;
 
             return true;
@@ -205,7 +211,7 @@ namespace Mankala
                 {
                     pitCount++;
                 }
-                string collectionPit = "CollectionPit";
+                string collectionPit = "Mankala.CollectingPit";
                 if (newBoard.pits[pitCount].isOfPlayer != turnPlayer && newBoard.pits[pitCount].GetType().ToString() == collectionPit)
                 {
                     continue;
@@ -218,11 +224,11 @@ namespace Mankala
     }
 
 
-    class Wari : Ruleset
+    public class Wari : Ruleset
     {
         public override int playingPits
         {
-            get { return 6; }
+            get { return 12; }
         }
 
 
@@ -269,7 +275,7 @@ namespace Mankala
                 {
                     pitCount++;
                 }
-                string collectionPit = "CollectionPit";
+                string collectionPit = "Wari.CollectingPit";
                 if (newBoard.pits[pitCount].GetType().ToString() == collectionPit)
                 {
                     continue;
@@ -307,7 +313,7 @@ namespace Mankala
             if (chosenPit.stones.Count == 0)
                 return false;
 
-            if (chosenPit.GetType().ToString() == "CollectionPit")
+            if (chosenPit.GetType().ToString() == "Wari.CollectingPit")
                 return false;
 
             return true;
