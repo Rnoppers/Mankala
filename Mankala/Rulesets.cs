@@ -72,7 +72,7 @@ namespace Mankala
         {
             for (int i = 0; i <= playBoard.pits.Length; i++)
             {
-                if (playBoard.pits[i].GetType().ToString() == "CollectionPit" && playBoard.pits[i].isOfPlayer == turnPlayer)
+                if (playBoard.pits[i] is CollectingPit && playBoard.pits[i].isOfPlayer == turnPlayer)
                     return i;
             }
             throw new ArgumentException("player heeft geen collectionpit.");
@@ -270,8 +270,7 @@ namespace Mankala
                 {
                     pitCount++;
                 }
-                string collectionPit = "CollectionPit";
-                if (newBoard.pits[pitCount].GetType().ToString() == collectionPit)
+                if (newBoard.pits[pitCount] is CollectingPit)
                 {
                     continue;
                 }
@@ -308,7 +307,7 @@ namespace Mankala
             if (chosenPit.stones.Count == 0)
                 return false;
 
-            if (chosenPit.GetType().ToString() == "CollectionPit")
+            if (chosenPit is CollectingPit)
                 return false;
 
             return true;
