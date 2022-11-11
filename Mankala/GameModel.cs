@@ -4,18 +4,14 @@ using System.Text;
 
 namespace Mankala
 {
-    class GameClient : Subject, Observer
+    class GameModel : GameSubject, ControllerObserver
     {
         private Game gameState;     // field where the actual game is stored? Or maybe just a read-property.
 
-        private List<Observer> _observers = new List<Observer>();
+        private List<GameObserver> _observers = new List<GameObserver>();
 
-        public GameClient()
+        public GameModel()
         {
-            Console.WriteLine("What gamemode do you want to play? Mankala or Wari");
-            string input = Console.ReadLine();
-            GameInstatiator newGame = new GameInstatiator(input);
-            gameState = newGame.gameplay;
         }
 
 
@@ -24,17 +20,18 @@ namespace Mankala
             return gameState;
         }
 
-        public void Update(Subject subject)
+        public void Update(string input)
         {
-            // receives update from Controller, most often when input is given.
+            GameInstatiator newGame = new GameInstatiator(input);
+            gameState = newGame.gameplay;
         }
 
-        public void Attach(Observer observer)
+        public void Attach(GameObserver observer)
         {
             this._observers.Add(observer);
         }
 
-        public void Detach(Observer observer)
+        public void Detach(GameObserver observer)
         {
             this._observers.Remove(observer);
         }
@@ -45,7 +42,7 @@ namespace Mankala
             // this will also be the GameView to show the new state of the playingfield
             foreach (var observer in _observers)
             {
-                observer.Update(this);
+                observer.Update(gameState);
             }
         }
 

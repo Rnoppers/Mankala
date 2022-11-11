@@ -4,26 +4,29 @@ using System.Text;
 
 namespace Mankala
 {
-    public class GameController : Observer//, Subject
+    public class GameController : GameObserver//, Subject
     {
-        private int state;
+        private string input;
         private int selectedGame;
 
 
-        private List<Observer> _observers = new List<Observer>();
+        private List<ControllerObserver> _observers = new List<ControllerObserver>();
 
-        public void Update(Subject subject) 
+        public void Update(Game subject) 
         { 
             // receives update from Model, usually when input was incorrect.
+
+            //When not yet finished with the Game:
+            //RunGame();
         }
 
-        /*
-        public void Attach(Observer observer) 
+        
+        public void Attach(ControllerObserver observer) 
         {
             this._observers.Add(observer);
         }
 
-        public void Detach(Observer observer)
+        public void Detach(ControllerObserver observer)
         {
             this._observers.Remove(observer);
         }
@@ -32,10 +35,10 @@ namespace Mankala
         {
             foreach (var observer in _observers)
             {
-                observer.Update(this);
+                observer.Update(input);
             }
-        }
-        */          // commented section while we ignore Controller as a subject
+        }     
+
 
         public void SelectGame()
         {
@@ -55,8 +58,14 @@ namespace Mankala
             {
                 Console.WriteLine("Game selected. Launching now..");
                 selectedGame = option;
-                //Notify();
+                Notify();
             }
+        }
+
+        public void RunGame()
+        {
+            input = Console.ReadLine();
+            Notify();
         }
 
     }

@@ -4,39 +4,47 @@ using System.Text;
 
 namespace Mankala
 {
-    class GameView : Observer
+    class GameView : GameObserver
     {
         private Game gameState;
 
-        public void Update(Subject subject)
+        public void Update(Game subject)
         {
+            this.gameState = subject;
+
             // call methods to draw the new state of the playingfield
-            
-            //this.gameState = subject;
+            DrawBoard();
         }
 
 
 
-        private void DrawBoard()
+        private string DrawBoard()
         {
             PlayingBoard board = gameState.thePlayBoard;
             Pit[] pits = board.pits;
-
             int pitLength = LargestPit(pits);
+            string outputBoard = "";
 
-            string collectingPit = "{";
-            string outputBoard;
+            foreach (Pit pit in pits)
+            {
+                outputBoard = outputBoard + DrawPit(pit, pitLength) + " ";
+            }
 
-            outputBoard =
-                " @" +
-                " @" +
-                " @" +
-                " @" +
-                " @";
-
-
-            outputBoard = outputBoard.Replace("@", System.Environment.NewLine);
+            return (outputBoard.Replace("@", Environment.NewLine));
             
+        }
+
+        private string DrawPit(Pit pit, int length)
+        {
+            int pitContent = pit.stones.Count;
+            string output = IndentPitContent(length, pitContent.ToString());
+
+            if (pit is CollectingPit)
+            {
+                // if the pit is a Collectingpit, start a new line (@ represents newline).
+                return ("@{" + output + "}");
+            }
+            return ("[" + output + "]");
         }
 
         private string IndentPitContent(int length, string text)

@@ -15,7 +15,7 @@ namespace Mankala
 
         public void Run()
         {
-            Console.WriteLine("What gamemode do you want to play? Mankala or Wari");
+            Console.WriteLine("What gamemode do you want to play? Nothing.");
 
             string input = Console.ReadLine();
             GameInstatiator newGame = new GameInstatiator(input);
