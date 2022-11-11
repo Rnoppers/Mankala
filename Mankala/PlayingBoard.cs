@@ -14,53 +14,32 @@ namespace Mankala
 
         }
         
-        public PlayingBoard(List<PitRecipe> pits, Stack<int> initialAmountOfStones, Player[] players)
+        public PlayingBoard(int pits, Stack<int> initialAmountOfStones, Player[] players)
         {
             CreatePits(pits, initialAmountOfStones, players);
         }
         
-        private void CreatePits(List<PitRecipe> amountOfPits, Stack<int> stones, Player[] players)
+        private void CreatePits(int amountOfPits, Stack<int> stones, Player[] players)
         {
             PitFactory collectPitFactory = new CollectingPitCreator();
             PitFactory playPitFactory = new PlayingPitCreator();
 
-            int totalPits = 0;
-            foreach(PitRecipe pit in amountOfPits)
-            {
-                totalPits += pit.amountOfPits;
-            }
-
-            pits = new Pit[totalPits];
-            int counter = 0;
-
             int amountOfPlayers = players.Length;
+            pits = new Pit[amountOfPits + amountOfPlayers];
+            int pitsPerPlayer = amountOfPits / amountOfPlayers;
+
+            // Puts every pit at the correct index of the array
             for (int i = 0; i < amountOfPlayers; i++)
             {
-                string collection = "CollectionPit";
-                string playing = "PlayingPit";
-                foreach (PitRecipe pit in amountOfPits)
+                int startAtIndex = i * pitsPerPlayer + i;
+                pits[startAtIndex] = collectPitFactory.CreatePit(players[i], stones);
+                for (int j = startAtIndex + 1; j <= startAtIndex + pitsPerPlayer; j++)
                 {
-                    for (int j = 0; j < pit.amountOfPits; j++)
-                    {
-                        if (pit.kindOfPit == collection)
-                        {
-                           pits[counter] = collectPitFactory.CreatePit(players[i], stones);
-                            counter++;
-                        }
-                        if (pit.kindOfPit == playing)
-                        {
-                            pits[counter] = playPitFactory.CreatePit(players[i], stones);
-                            counter++;
-                        }
-                        else
-                        {
-                            throw new ArgumentException("New kind of pit");
-                        }
-                    }
+                    pits[j] = playPitFactory.CreatePit(players[i], stones);
                 }
             }
+
         }
 
     }
-
 }

@@ -6,7 +6,7 @@ namespace Mankala
 {
     class GameClient : Subject, Observer
     {
-        private Game gameState;
+        private Game gameState;     // field where the actual game is stored? Or maybe just a read-property.
 
         private List<Observer> _observers = new List<Observer>();
 

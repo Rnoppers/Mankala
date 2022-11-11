@@ -25,7 +25,7 @@ namespace Mankala
             //Starting player is player 1.
             turnPlayer = player1;
             PlayingBoardFactory playBoardFactory = new PlayingBoardFactory();
-            thePlayBoard = playBoardFactory.CreatePlayingBoard(knownRules.playerPits, knownRules.startingStones, players);
+            thePlayBoard = playBoardFactory.CreatePlayingBoard(knownRules.playingPits, knownRules.startingStones, players);
             //The game has begun. Player 1 may start and choose a pit.
         }
 
@@ -41,7 +41,7 @@ namespace Mankala
             else
             {
                 NextPlayerTurn();
-                NextTurn();
+                //NextTurn();
             }
         }
 
