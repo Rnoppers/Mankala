@@ -22,7 +22,7 @@ namespace Mankala
     {
         public override Pit CreatePit(Player isOfPlayer, Stack<int> stones)
         {
-            CollectingPit newPit = new CollectingPit(isOfPlayer, stones);
+            CollectingPit newPit = new CollectingPit(isOfPlayer, new Stack<int>());
             return newPit;
         }
     }

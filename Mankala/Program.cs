@@ -16,8 +16,7 @@ namespace Mankala
             game.Attach(controller);
 
             controller.SelectGame();
-
-            controller.RunGame();
+            //controller.AwaitInput();
 
             //when game is won, some logic to exit
             GameModel client = new GameModel();

@@ -9,20 +9,27 @@ namespace Mankala
         private Ruleset gameRules;
 
 
-        public Turn(Ruleset rules, PlayingBoard thePlayBoard, Player turnPlayer, int chosenPit)
+        public Turn(Ruleset rules)
         {
             gameRules = rules;
-            NextMove(thePlayBoard, turnPlayer, chosenPit);
         }
 
 
-        public void NextMove(PlayingBoard playBoard, Player turnPlayer, int chosenPit)
+        public PlayingBoard NextMove(PlayingBoard playBoard, Player turnPlayer, int chosenPit)
         {
-            gameRules.Move(playBoard, turnPlayer, chosenPit);
+            Console.WriteLine("Making a move at pit " + chosenPit.ToString());
+            
+            bool legalMove = gameRules.LegalMove(playBoard.pits[chosenPit], turnPlayer);
+           
+            if (legalMove)
+            {
+                return gameRules.Move(playBoard, turnPlayer, chosenPit);
 
-           // PlayingBoardFactory illegalFactory = new PlayingBoardFactory(); Dit nog gebruiken als illegale zet, dan opnieuw nextMove.
+            }
+            return (new PlayingBoardFactory().illegalBoard());
 
         }
+
 
 
     }

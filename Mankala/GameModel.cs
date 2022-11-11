@@ -10,31 +10,58 @@ namespace Mankala
 
         private List<GameObserver> _observers = new List<GameObserver>();
 
+        private bool launchingGame = true;
+        private bool runningGame = false;
+
+
+
+
+
         public GameModel()
         {
         }
-
 
         public Game getGameState()
         {
             return gameState;
         }
-
-        public void Update(string input)
-        {
-            GameInstatiator newGame = new GameInstatiator(input);
-            gameState = newGame.gameplay;
-        }
-
         public void Attach(GameObserver observer)
         {
             this._observers.Add(observer);
         }
-
         public void Detach(GameObserver observer)
         {
             this._observers.Remove(observer);
         }
+
+        public void Update(string input)
+        {
+            if(launchingGame && !runningGame)
+            {
+                GameInstatiator newGame = new GameInstatiator();
+                gameState = newGame.CreateGame(input);
+                ChangeState();
+                Notify();
+            }
+            else if (runningGame && !launchingGame)
+            {
+                //update according to input for the current turn.
+
+                if (gameState.gameOver)
+                {
+                    // end the game, otherwise..
+                    Console.WriteLine("Game ended.");
+                }
+                else
+                {   // making a move
+                    Console.WriteLine("Making a new move..");
+                    gameState.NextTurn(input);
+                    Notify();
+                }
+            }
+
+        }
+
 
         public void Notify()
         {
@@ -44,6 +71,12 @@ namespace Mankala
             {
                 observer.Update(gameState);
             }
+        }
+
+        private void ChangeState()
+        {
+            runningGame = !runningGame;
+            launchingGame = !launchingGame;
         }
 
 

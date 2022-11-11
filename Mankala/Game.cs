@@ -13,6 +13,7 @@ namespace Mankala
         public bool gameOver;
         public Player winner;
 
+        private bool playerStillMoving;
 
         public Game(Ruleset rules)
         {
@@ -26,23 +27,55 @@ namespace Mankala
             turnPlayer = player1;
             PlayingBoardFactory playBoardFactory = new PlayingBoardFactory();
             thePlayBoard = playBoardFactory.CreatePlayingBoard(knownRules.playingPits, knownRules.startingStones, players);
+
+            playerStillMoving = true;
             //The game has begun. Player 1 may start and choose a pit.
         }
 
-        public void NextTurn(int chosenPit)
+        public void NextTurn(string input)
         {
-            Turn newTurn = new Turn(knownRules, thePlayBoard, turnPlayer, chosenPit);
-            // alles gebeurt in turn, tot turn voorbij is.
+            int chosenPit = int.Parse(input);
+            
+            GameIsOver();
 
-            if (knownRules.GameOverChecker(thePlayBoard, turnPlayer))
+            if (gameOver)
             {
                 DeclareWinner();
             }
             else
-            {
-                NextPlayerTurn();
-                //NextTurn();
+            {   
+                if (playerStillMoving)
+                {
+                    //perform turn
+                    Console.WriteLine("Initiating turn");
+                    Turn newTurn = new Turn(knownRules);
+                    PlayingBoard newBoard = newTurn.NextMove(thePlayBoard, turnPlayer, chosenPit);
+
+                    if (knownRules.CanMoveAgain(thePlayBoard, knownRules.DetermineEndingPit(thePlayBoard,chosenPit)))
+                    {
+                        // Player can move again
+                        Console.WriteLine("Player " + turnPlayer.ToString() + ", you can make another move!");
+                        playerStillMoving = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Player " + turnPlayer.ToString() + "'s turn is over.");
+                        // Play can not move anymore
+                        playerStillMoving = false;
+                    }
+
+                    // make sure to update the board to the new, updated version, after every move.
+                    thePlayBoard = newBoard;
+                }
+                else
+                {
+                    Console.WriteLine("Next player's move.");
+                    NextPlayerTurn();
+                    playerStillMoving = true;
+                }
             }
+
+           
         }
 
         private void NextPlayerTurn()
@@ -55,6 +88,11 @@ namespace Mankala
             {
                 turnPlayer = players[0];
             }
+        }
+
+        private void GameIsOver()
+        {
+            gameOver = knownRules.GameOverChecker(thePlayBoard, turnPlayer);
         }
 
         private void DeclareWinner()

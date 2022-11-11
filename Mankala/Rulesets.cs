@@ -26,6 +26,8 @@ namespace Mankala
 
         public abstract PlayingBoard DoMove(PlayingBoard playBoard, Player turnPlayer, int chosenPit);
 
+        public abstract bool CanMoveAgain(PlayingBoard board, int endingPit);
+
         public int DetermineEndingPit(PlayingBoard playBoard, int chosenPit)
         {
             int endingPit = chosenPit;
@@ -141,41 +143,36 @@ namespace Mankala
 
         public override PlayingBoard Move(PlayingBoard playBoard, Player turnPlayer, int chosenPit)
         {
-            if (LegalMove(playBoard.pits[chosenPit], turnPlayer))
-            {
-                PlayingBoard afterMoveBoard = DoMove(playBoard, turnPlayer, chosenPit);
+            Console.WriteLine("Before DoMove");
+                
+            PlayingBoard afterMoveBoard = DoMove(playBoard, turnPlayer, chosenPit);
 
-                int endingPit = DetermineEndingPit(playBoard, chosenPit);
-                if (afterMoveBoard.pits[endingPit].isOfPlayer == turnPlayer)
+            Console.WriteLine("After DoMove");
+            
+            int endingPit = DetermineEndingPit(playBoard, chosenPit);    
+
+            if (afterMoveBoard.pits[endingPit].isOfPlayer == turnPlayer)
+            {
+                if (afterMoveBoard.pits[endingPit] is CollectingPit)
                 {
-                    if (afterMoveBoard.pits[endingPit].GetType().ToString() == "CollectionPit")
-                    {
-                        //Player mag opnieuw een pit kiezen. User Input welke pit tie nu kiest. Wachten op user input en dan opnieuw Move aanroepen.
-                        int newChosenPit = -1;
-                        return Move(afterMoveBoard, turnPlayer, newChosenPit);
-                    }
-
-                    if (afterMoveBoard.pits[endingPit].stones.Count > 0)
-                    {
-                        return Move(afterMoveBoard, turnPlayer, endingPit);
-                    }
-
-                    //Takes stones from opposite pit and put it in collectingpit. 
-                    int oppositePit = DetermineOppositePit(playBoard, endingPit);
-                    if (afterMoveBoard.pits[oppositePit].stones.Count > 0)
-                    {
-                        return EatStones(afterMoveBoard, oppositePit, turnPlayer);
-                    }
+                    //Player mag opnieuw een pit kiezen. User Input welke pit die nu kiest. Wachten op user input en dan opnieuw Move aanroepen.
+                    int newChosenPit = -1;
+                    return Move(afterMoveBoard, turnPlayer, newChosenPit);
                 }
-                return afterMoveBoard;
-            }
-            else
-            {
-                Console.WriteLine("illegal move. Try again.");
-                PlayingBoardFactory factory = new PlayingBoardFactory();
-                return factory.illegalBoard();
-            }
 
+                if (afterMoveBoard.pits[endingPit].stones.Count > 0)
+                {
+                    return Move(afterMoveBoard, turnPlayer, endingPit);
+                }
+
+                //Takes stones from opposite pit and put it in collectingpit. 
+                int oppositePit = DetermineOppositePit(playBoard, endingPit);
+                if (afterMoveBoard.pits[oppositePit].stones.Count > 0)
+                {
+                    return EatStones(afterMoveBoard, oppositePit, turnPlayer);
+                }
+            }
+            return afterMoveBoard;
         }
 
         public override bool LegalMove(Pit chosenPit, Player turnPlayer)
@@ -186,7 +183,7 @@ namespace Mankala
             if (chosenPit.stones.Count == 0)
                 return false;
 
-            if (chosenPit.GetType().ToString() == "CollectionPit")
+            if (chosenPit is CollectingPit)
                 return false;
 
             return true;
@@ -199,14 +196,13 @@ namespace Mankala
 
             while (newBoard.pits[chosenPit].stones.Count > 0)
             {
-                if (pitCount++ >= newBoard.pits.Length)
+                if (pitCount+1 >= newBoard.pits.Length)
                     pitCount = 0;
                 else
                 {
                     pitCount++;
                 }
-                string collectionPit = "CollectionPit";
-                if (newBoard.pits[pitCount].isOfPlayer != turnPlayer && newBoard.pits[pitCount].GetType().ToString() == collectionPit)
+                if (newBoard.pits[pitCount].isOfPlayer != turnPlayer && newBoard.pits[pitCount] is CollectingPit)
                 {
                     continue;
                 }
@@ -214,6 +210,11 @@ namespace Mankala
                 newBoard.pits[chosenPit].stones.Pop();
             }
             return newBoard;
+        }
+
+        public override bool CanMoveAgain(PlayingBoard board, int endingPit)
+        {
+            return (board.pits[endingPit] is CollectingPit);
         }
     }
 
@@ -315,9 +316,7 @@ namespace Mankala
 
         public override PlayingBoard Move(PlayingBoard playBoard, Player turnPlayer, int chosenPit)
         {
-            if (LegalMove(playBoard.pits[chosenPit], turnPlayer))
-            {
-                PlayingBoard afterMoveBoard = DoMove(playBoard, turnPlayer, chosenPit);
+            PlayingBoard afterMoveBoard = DoMove(playBoard, turnPlayer, chosenPit);
 
                 int endingPit = DetermineEndingPit(playBoard, chosenPit);
                 if (afterMoveBoard.pits[endingPit].isOfPlayer != turnPlayer)
@@ -330,14 +329,11 @@ namespace Mankala
                     }
                 }
                 return afterMoveBoard;
-            }
-            else
-            {
-                Console.WriteLine("illegal move. Try again.");
-                PlayingBoardFactory factory = new PlayingBoardFactory();
-                return factory.illegalBoard();
-            }
+        }
 
+        public override bool CanMoveAgain(PlayingBoard board, int endingPit)
+        {
+            return false;
         }
     }
 
