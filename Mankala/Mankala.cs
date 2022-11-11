@@ -6,12 +6,6 @@ namespace Mankala
 {
     public class Mankala : Ruleset
     {
-        
-        private int playerCollectionPits => 1;
-
-        private int playerPlayingPits => 6;
-        
-
         public override List<PitRecipe> playerPits
         {
             get
@@ -111,56 +105,7 @@ namespace Mankala
                 PlayingBoardFactory factory = new PlayingBoardFactory();
                 return factory.illegalBoard();
             }
-        }
 
-        private int DetermineEndingPit(PlayingBoard playBoard, int chosenPit)
-        {
-            int endingPit = chosenPit;
-            for (int i = 0; i < playBoard.pits[chosenPit].stones.Count; i++)
-            {
-                if (endingPit++ >= playBoard.pits.Length)
-                    endingPit = 0;
-                else
-                {
-                    endingPit++;
-                }
-            }
-            return endingPit;
-        }
-
-        private int DetermineOppositePit(PlayingBoard playBoard, int endingPit)
-        {
-            if (endingPit + (playBoard.pits.Length / 2) >= playBoard.pits.Length)
-            {
-                return endingPit - (playBoard.pits.Length / 2);
-            }
-            else
-            {
-                return endingPit + (playBoard.pits.Length / 2);
-            }
-        }
-
-        private PlayingBoard EatStones(PlayingBoard playBoard, int eatPit, Player turnPlayer)
-        {
-            PlayingBoard returnBoard = playBoard;
-            int collectionPit = FindCollectionPit(playBoard, turnPlayer);
-
-            foreach (int stone in returnBoard.pits[eatPit].stones)
-            {
-                returnBoard.pits[collectionPit].stones.Push(stone);
-                returnBoard.pits[eatPit].stones.Pop();
-            }
-            return returnBoard;
-        }
-
-        private int FindCollectionPit(PlayingBoard playBoard, Player turnPlayer)
-        {
-            for (int i = 0; i <= playBoard.pits.Length; i++)
-            {
-                if (playBoard.pits[i].GetType().ToString() == "CollectionPit" && playBoard.pits[i].isOfPlayer == turnPlayer)
-                    return i;
-            }
-            throw new ArgumentException("player heeft geen collectionpit.");
         }
 
         public override bool LegalMove(Pit chosenPit, Player turnPlayer)
@@ -191,7 +136,7 @@ namespace Mankala
                     pitCount++;
                 }
                 string collectionPit = "CollectionPit";
-                if (newBoard.pits[pitCount].isOfPlayer == turnPlayer && newBoard.pits[pitCount].GetType().ToString() == collectionPit)
+                if (newBoard.pits[pitCount].isOfPlayer != turnPlayer && newBoard.pits[pitCount].GetType().ToString() == collectionPit)
                 {
                     continue;
                 }

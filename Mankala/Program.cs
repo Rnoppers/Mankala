@@ -6,8 +6,7 @@ namespace Mankala
     {
         static void Main()
         {
-            GameRunner runner = new GameRunner();
-            runner.Run();
+            GameClient client = new GameClient();
 
         }
     }

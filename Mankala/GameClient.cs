@@ -10,6 +10,15 @@ namespace Mankala
 
         private List<Observer> _observers = new List<Observer>();
 
+        public GameClient()
+        {
+            Console.WriteLine("What gamemode do you want to play? Mankala or Wari");
+            string input = Console.ReadLine();
+            GameInstatiator newGame = new GameInstatiator(input);
+            gameState = newGame.gameplay;
+        }
+
+
         public Game getGameState()
         {
             return gameState;
